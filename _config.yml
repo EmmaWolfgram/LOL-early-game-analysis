@@ -1,16 +1,3 @@
-# remote_theme: pages-themes/cayman@v0.2.0
-# plugins:
-# - jekyll-remote-theme # add this line to the plugins list if you already have one
-
-# title: "How Early Leads Decide League of Legends Matches"
-# description: "DSC80 Final Project Spring 2026"
-
-remote_theme: mmistakes/minimal-mistakes
-
+remote_theme: pages-themes/cayman@v0.2.0
 plugins:
-  - jekyll-remote-theme
-  - jekyll-include-cache
-
-minimal_mistakes_skin: "dark"
-
-markdown: kramdown
+- jekyll-remote-theme # add this line to the plugins list if you already have one
