@@ -3,17 +3,24 @@
 
 @import "{{ site.theme }}";
 
-/* Header gradient */
+/* Top banner/header */
 .page-header {
-    background-image: linear-gradient(120deg, #02080f, #1d4962);
+    background-image: linear-gradient(120deg, #0b1426, #1f3b5c);
 }
 
-/* Main titles */
-h1 {
-    color: 	#C79B3B;
+/* Main content titles (# and ## in markdown) */
+.main-content h1 {
+    color: #c8aa6e;
 }
 
-/* Content headers */
-h2, h3, h4, h5, h6 {
-    color: #02080f;
+.main-content h2 {
+    color: #4cc9f0;
+}
+
+/* Optional smaller headers */
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+    color: #90e0ef;
 }
