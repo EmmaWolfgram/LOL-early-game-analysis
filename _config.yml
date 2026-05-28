@@ -2,8 +2,8 @@
 # plugins:
 # - jekyll-remote-theme # add this line to the plugins list if you already have one
 
-title: "How Early Leads Decide League of Legends Matches"
-description: "DSC80 Final Project Spring 2026"
+# title: "How Early Leads Decide League of Legends Matches"
+# description: "DSC80 Final Project Spring 2026"
 
 remote_theme: mmistakes/minimal-mistakes
 
