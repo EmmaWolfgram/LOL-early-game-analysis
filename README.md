@@ -1,2 +1,2 @@
-# LOL-early-game-analysis
-DSC80 Final Project Spring 2026
+# How Early Leads Decide League of Legends Matches
+By: Emma Wolfgram
