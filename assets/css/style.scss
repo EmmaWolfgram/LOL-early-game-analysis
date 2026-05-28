@@ -3,9 +3,17 @@
 
 @import "{{ site.theme }}";
 
-/* Top banner/header */
+/* Top banner colors */
 .page-header {
     background-image: linear-gradient(120deg, #02080f, #1d4962);
+}
+/* Top title */
+.page-header .project-name {
+    color: #C79B3B;
+}
+/* Subtitle */
+.page-header .project-tagline {
+    color: #C79B3B;
 }
 
 /* Main content titles (# and ## in markdown) */
