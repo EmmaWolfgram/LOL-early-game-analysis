@@ -50,7 +50,7 @@ Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstd
 | ESPORTSTMNT01_2690210 | LCKC     | Red    | True     |         28.6 |      14695 |      24699 |          -1523 |           -107 | False        | False        | True          | False         | False        | complete           |
 | ESPORTSTMNT01_2690219 | LCKC     | Blue   | False    |         35.2 |      14939 |      23522 |          -1619 |          -1763 | False        | False        | False         | True          | False        | complete           |
 | ESPORTSTMNT01_2690219 | LCKC     | Red    | True     |         35.2 |      16558 |      25285 |           1619 |           1763 | True         | True         | True          | False         | True         | complete           |
-| 8401-8401_game_1      | LPL      | Blue   | True     |         22.8 |        nan |        nan |            nan |            nan | False        | True         | False         | <NA>          | <NA>         | partial            |
+| ESPORTSTMNT01_2690227 | LCKC     | Blue   | True     |         32.9 |      15466 |      24795 |           -103 |           1191 | False        | True         | True          | False         | True         | complete           |
 
 ### Univariate Analysis
 
