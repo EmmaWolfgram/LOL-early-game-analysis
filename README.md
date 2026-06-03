@@ -20,7 +20,7 @@ This project analyzes a dataset of 12,529 competitive matches from Oracle's Elix
 
 The 15-minute mark is significant because it represents the end of the laning phase (the early stage of the game where players farm gold and fight for early objectives). After 15 minutes, teams begin grouping together for large-scale fights and objectives. Understanding whether the laning phase effectively decides the game has real implications for how teams draft chamption, set strategic priorites, and allocate resources.
 
-The orginal dataframe contains **ADD NUMBERS** rows and 165 columns. The columns that are central to the analysis are the following:
+The orginal dataframe contains 150,348 rows and 165 columns. The columns that are central to the analysis are the following:
 
 | **Column** | **Description** |
 | ---------- | --------------- |
@@ -44,13 +44,13 @@ Then complete games and partial games are separted using the `datacompleteness` 
 
 Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which where then cast to booleans. Game lenght was also converted from seconds to minutes for readability.
 
-| gameid                | league   | side   | result   |   gamelength |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 | firstblood   | firsttower   | firstdragon   | firstherald   | firstbaron   | datacompleteness   |
-|:----------------------|:---------|:-------|:---------|-------------:|-----------:|-----------:|---------------:|---------------:|:-------------|:-------------|:--------------|:--------------|:-------------|:-------------------|
-| ESPORTSTMNT01_2690210 | LCKC     | Blue   | False    |         28.6 |      16218 |      24806 |           1523 |            107 | True         | True         | False         | True          | False        | complete           |
-| ESPORTSTMNT01_2690210 | LCKC     | Red    | True     |         28.6 |      14695 |      24699 |          -1523 |           -107 | False        | False        | True          | False         | False        | complete           |
-| ESPORTSTMNT01_2690219 | LCKC     | Blue   | False    |         35.2 |      14939 |      23522 |          -1619 |          -1763 | False        | False        | False         | True          | False        | complete           |
-| ESPORTSTMNT01_2690219 | LCKC     | Red    | True     |         35.2 |      16558 |      25285 |           1619 |           1763 | True         | True         | True          | False         | True         | complete           |
-| ESPORTSTMNT01_2690227 | LCKC     | Blue   | True     |         32.9 |      15466 |      24795 |           -103 |           1191 | False        | True         | True          | False         | True         | complete           |
+| gameid                | league   | side   | result   |   gamelength |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 | firstblood   | firsttower   | firstdragon   | datacompleteness   |
+|:----------------------|:---------|:-------|:---------|-------------:|-----------:|-----------:|---------------:|---------------:|:-------------|:-------------|:--------------|:-------------------|
+| ESPORTSTMNT01_2690210 | LCKC     | Blue   | False    |         28.6 |      16218 |      24806 |           1523 |            107 | True         | True         | False         | complete           |
+| ESPORTSTMNT01_2690210 | LCKC     | Red    | True     |         28.6 |      14695 |      24699 |          -1523 |           -107 | False        | False        | True          | complete           |
+| ESPORTSTMNT01_2690219 | LCKC     | Blue   | False    |         35.2 |      14939 |      23522 |          -1619 |          -1763 | False        | False        | False         | complete           |
+| ESPORTSTMNT01_2690219 | LCKC     | Red    | True     |         35.2 |      16558 |      25285 |           1619 |           1763 | True         | True         | True          | complete           |
+| ESPORTSTMNT01_2690227 | LCKC     | Blue   | True     |         32.9 |      15466 |      24795 |           -103 |           1191 | False        | True         | True          | complete           |
 
 ### Univariate Analysis
 
