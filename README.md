@@ -38,9 +38,19 @@ The orginal dataframe contains **ADD NUMBERS** rows and 165 columns. The columns
 
 ## Data Cleaning
 
-The raw dataset contains 12 rows per game - 10 player rows and 2 team summary row. For this analysis, player statistics are not needed so rows are filtered to only keep team rows. This reduces the dataset to **NUMBERS** representing **NUMBERS** unique games.
+The raw dataset contains 12 rows per game - 10 player rows and 2 team summary row. For this analysis, player statistics are not needed so rows are filtered to only keep team rows. This reduces the dataset to 25,058 representing 10,641 unique games.
 
-Then a new dataframe is made to only keep rows where `datacompleteness = complete`. This is done since paritial rows are missing the early-game gold columns which are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
+Then complete games and partial games are separted using the `datacompleteness` column. This is done since paritial rows are missing the early-game gold columns which are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
+
+Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which where then cast to booleans. Game lenght was also converted from seconds to minutes for readability.
+
+| gameid                | league   | side   | result   |   gamelength |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 | firstblood   | firsttower   | firstdragon   | firstherald   | firstbaron   | datacompleteness   |
+|:----------------------|:---------|:-------|:---------|-------------:|-----------:|-----------:|---------------:|---------------:|:-------------|:-------------|:--------------|:--------------|:-------------|:-------------------|
+| ESPORTSTMNT01_2690210 | LCKC     | Blue   | False    |         28.6 |      16218 |      24806 |           1523 |            107 | True         | True         | False         | True          | False        | complete           |
+| ESPORTSTMNT01_2690210 | LCKC     | Red    | True     |         28.6 |      14695 |      24699 |          -1523 |           -107 | False        | False        | True          | False         | False        | complete           |
+| ESPORTSTMNT01_2690219 | LCKC     | Blue   | False    |         35.2 |      14939 |      23522 |          -1619 |          -1763 | False        | False        | False         | True          | False        | complete           |
+| ESPORTSTMNT01_2690219 | LCKC     | Red    | True     |         35.2 |      16558 |      25285 |           1619 |           1763 | True         | True         | True          | False         | True         | complete           |
+| 8401-8401_game_1      | LPL      | Blue   | True     |         22.8 |        nan |        nan |            nan |            nan | False        | True         | False         | <NA>          | <NA>         | partial            |
 
 ### Univariate Analysis
 
@@ -57,6 +67,8 @@ Then a new dataframe is made to only keep rows where `datacompleteness = complet
 ## Hypothesis Testing
 
 ## Framing a Prediction Problem
+
+Two columns were engineered for use in modeling: `gold_momentum` (`golddiffat15 - golddiffat10`), capturing whether a gold lead was growing or shrinking between 10 and 15 minutes, and `first_obj_count` (sum of `firstblood`, `firsttower`, and `firstdragon`), a 0-3 scale of early map dominance.
 
 ## Baseline Model
 
