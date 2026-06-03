@@ -16,13 +16,14 @@ League of Legends (LOL) is one of the most popular competitive games in the worl
 
 This project analyzes a dataset of 12,529 competitive matches from Oracle's Elixir's 2022 League of Legends professional match dataset. This dataset captures several gameplay statistics offering a detailed source of player behavior, team summaries, and match outcomes.
 
-Central Question: Does a team's gold lead at the 15-minute mark predict whether they will win? Is there a gold threshold beyond which a lead becomes "unlosable"?
+**Central Question: Does a team's gold lead at the 15-minute mark predict whether they will win? Is there a gold threshold beyond which a lead becomes "unlosable"?**
 
 The 15-minute mark is significant because it represents the end of the laning phase (the early stage of the game where players farm gold and fight for early objectives). After 15 minutes, teams begin grouping together for large-scale fights and objectives. Understanding whether the laning phase effectively decides the game has real implications for how teams draft chamption, set strategic priorites, and allocate resources.
 
 The orginal dataframe contains 150,348 rows and 165 columns. There are 12 rows per match - 10 player rows (5 for Blue side, 5 for Red) and 2 team rows detailing cumlative statistics. The columns that are central to the analysis are the following:
 
-| Column | Description |
+| **Column** | **Description** |
+| ---------- | --------------- |
 | `golddiffat15` | Gold difference between a team and their opponent at 15 minutes (positive difference means ahead in gold, negative means behind) |
 | `golddiffat10` | Gold difference at 10 minutes
 | `result` | Match outcome (1 for win, 0 for loss)
