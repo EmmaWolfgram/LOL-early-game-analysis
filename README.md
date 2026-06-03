@@ -20,7 +20,7 @@ This project analyzes a dataset of 12,529 competitive matches from Oracle's Elix
 
 The 15-minute mark is significant because it represents the end of the laning phase (the early stage of the game where players farm gold and fight for early objectives). After 15 minutes, teams begin grouping together for large-scale fights and objectives. Understanding whether the laning phase effectively decides the game has real implications for how teams draft chamption, set strategic priorites, and allocate resources.
 
-The orginal dataframe contains 150,348 rows and 165 columns. There are 12 rows per match - 10 player rows (5 for Blue side, 5 for Red) and 2 team rows detailing cumlative statistics. The columns that are central to the analysis are the following:
+The orginal dataframe contains **ADD NUMBERS** rows and 165 columns. The columns that are central to the analysis are the following:
 
 | **Column** | **Description** |
 | ---------- | --------------- |
@@ -35,6 +35,12 @@ The orginal dataframe contains 150,348 rows and 165 columns. There are 12 rows p
 | `datacompleteness` | Whether the row has complete or partial data
 
 ## Data Cleaning and Exploratory Data Analysis
+
+## Data Cleaning
+
+The raw dataset contains 12 rows per game - 10 player rows and 2 team summary row. For this analysis, player statistics are not needed so rows are filtered to only keep team rows. This reduces the dataset to **NUMBERS** representing **NUMBERS** unique games.
+
+Then a new dataframe is made to only keep rows where `datacompleteness = complete`. This is done since paritial rows are missing the early-game gold columns which are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
 
 ### Univariate Analysis
 
