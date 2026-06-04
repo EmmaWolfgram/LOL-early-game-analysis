@@ -219,9 +219,10 @@ The baseline model is a Logistic Regression classifier trained on four features:
 `golddiffat15` (quantitative, scaled with `StandardScaler`), and `firstblood` ,`firsttower`, and `side` (all nominal, encoded with `OneHotEncoder`). 
 
 The results for this baseline model are:
+
 | Metric | Score |
 | ------ | ----- |
-| Accuracy | 0.7388|
+| Accuracy | 0.7388 |
 | F1-score | 0.7396 |
 
 This baseline is a reasonable but imperfect model. At ~74% accuracy and F1-score, it performs well above the 50% random baseline, meaning early gold and objective features do carry genuine predictive signal. However, it is not a particularly "good" model in an absolute sense, roughly 1 in 4 predictions is wrong and logistic regression's linear decision boundary is likely too rigid to capture hte non-linear interactions between early-game features. It serves as a functional starting point, but there is clear room for improvement.
