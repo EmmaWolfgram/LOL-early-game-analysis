@@ -106,39 +106,63 @@ In this dataset, `playername` is most likely Not Missing At Random (NMAR). Looki
 
 ### Missingness Dependency
 
-Going to test if the missingness of the `golddiffat15` column depends on other columns. The two columns I am going to test this on is `league` and `side`.
+In this section, the missingness of the `golddiffat15` column is tested for dependency on two other columns: `league` and `side`.
 
-First, perform a permutation test on `golddiffat15` and `league`.
+**Permutation test 1: `golddiffat15` and `league`.**
 
-Null Hypo: Distribution of `league` when `golddiffat15` is missing is the same as the distribution of `league` when `golddiffat15` is not missing.
+**Null Hypothesis:** The distribution of `league` when `golddiffat15` is missing is the same as the distribution of `league` when `golddiffat15` is not missing.
 
-Alt Hypo: Distribution of `league` when `golddiffat15` is missing is NOT the same as the distribution of `league` when `golddiffat15` is not missing.
+**Alternative Hypothesis:** The distribution of `league` when `golddiffat15` is missing is NOT the same as the distribution of `league` when `golddiffat15` is not missing.
 
-Test stat: TVD (total variation distance)
+**Test statistic:** Total Variation Distance (TVD)
 
-Significance Level: 0.05
+**Significance Level:** 0.05
 
-(test 1 prop plot)
-WRITE
+<iframe
+  src="assets/missing_test1_prop.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
-(test 1 emp plot)
-WRITE MORE: The observed statistic of 0.9926 is shown on the graph by a red vertical line. Since the p-value that I found (0.0) is < 0.05, we reject the null hypothesis. Thus, the missingness of golddiffat15 depends on the league the team is a part of.
+The distribution of `league` proportions is visualized above for both groups, rows where `golddiffat15` is missing and rows where is is not.
 
-Second, perform a permutation test on `golddiffat15` and `side`.
+<iframe
+  src="assets/missing_test1_emp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
-Null Hypo: Distribution of `side` when `golddiffat15` is missing is the same as the distribution of `side` when `golddiffat15` is not missing.
+The observed TVD of 0.9926 is marked by the red vertical line. With a p-value of 0.0, which falls below the significance level of 0.05, we reject the null hypothesis. Therefore, the missingness of `golddiffat15` **is dependent** on `league`.
 
-Alt Hypo: Distribution of `side` when `golddiffat15` is missing is NOT the same as the distribution of `side` when `golddiffat15` is not missing.
+**Permutation Test 2: `golddiffat15` and `side`.**
 
-Test stat: difference in proportions
+**Null Hypothesis:** The distribution of `side` when `golddiffat15` is missing is the same as the distribution of `side` when `golddiffat15` is not missing.
 
-Significance Level: 0.05
+**Alternative Hypothesis:** The distribution of `side` when `golddiffat15` is missing is NOT the same as the distribution of `side` when `golddiffat15` is not missing.
 
-(test 2 prop plot)
-WRITE
+**Test statistic:** Difference in Proportions
 
-(test 2 emp plot)
-WRITE MORE: The observed statistic of 0 is shown on the graph by a red vertical line. Since the p-value that I found (1.00) is > 0.05, we fail to reject the null. Thus, the missingness of golddiffat15 does not depend on the side the team plays for.
+**Significance Level:** 0.05
+
+<iframe
+  src="assets/missing_test2_prop.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The distribution of `side` proportions is visualed above for both groups, rows where `golddiffat15` is missing and row where it is not.
+
+<iframe
+  src="assets/missing_test2_emp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The observed difference in proportions of 0.0 is marked by the red vertical line. With a p-value of 1.0, which exceeds the significance level of 0.05, we fail to reject the null. Therefore, the missingness of `golddiffat15` **is not dependent** on `side`.
 
 ## Hypothesis Testing
 
