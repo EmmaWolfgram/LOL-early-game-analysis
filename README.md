@@ -36,7 +36,7 @@ The orginal dataframe contains 150,348 rows and 165 columns. The columns that ar
 
 ## Data Cleaning and Exploratory Data Analysis
 
-## Data Cleaning
+### Data Cleaning
 
 The raw dataset contains 12 rows per game - 10 player rows and 2 team summary row. For this analysis, player statistics are not needed so rows are filtered to only keep team rows. This reduces the dataset to 25,058 representing 10,641 unique games.
 
