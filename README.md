@@ -22,7 +22,7 @@ The 15-minute mark is significant because it represents the end of the laning ph
 
 The orginal dataframe contains 150,348 rows and 165 columns. The columns that are central to the analysis are the following:
 
-| **Column** | **Description** |
+| Column | Description |
 | ---------- | --------------- |
 | `golddiffat15` | Gold difference between a team and their opponent at 15 minutes (positive difference means ahead in gold, negative means behind) |
 | `golddiffat10` | Gold difference at 10 minutes
@@ -54,9 +54,28 @@ Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstd
 
 ### Univariate Analysis
 
+The first univariate variable examined was the distribution of gold difference at 15 minutes (`golddiffat15`). To make this distribution more interpretable, only the team ahead in gold is included for each game. Including both teams would produce a distribution perfectly symmetric about zero, since every positive gold difference has an equal and opposite negative counterpart from the other team. By filtering to only gold-ahead teams, the shape of the early gold leads in professional play becomes much clearer.
+
+<iframe
+  src="assets/univarite_gold.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 This distribution shows the gold difference at 15 minutes for the team that was ahead in gold in each game (i.e. only positive gold differences are included). Smaller gold leads are much more common than large ones, with most games having a lead between 0 and 2,000 gold at 15 minutes and very few games seeing a lead beyond 5,000 gold. This suggests that while gold leads are nearly universal by 15 minutes, truly dominant early games are relatively rare in professional play.
 
 ### Bivariate Analysis
+
+The bivariate analysis examines how gold differences at 15 minutes relates to two 
+
+<iframe
+  src="assets/bivarite_gold_winrate.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 
 This bar chart shows win rate across gold difference buckets at 15 minutes. The relationship is striking, showing that win rate increases consistently as gold lead grows (from under 10% for teams down more than 3,000 gold to over 90% for teams ahead by more than 3,000 gold. Surprisingly, even a small lead of 500 to 1,500 gold pushed win rate well above 50%, suggesting that the laning phase is highly predictive of match outcomes.
 
