@@ -91,14 +91,12 @@ The plot suggests that larger gold leads are associated with shorter, more decis
 
 ### Aggregates
 
-|   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 |
-|-----------:|-----------:|---------------:|---------------:|
-|      15733 |      24952 |             88 |            250 |
-|      15645 |      24702 |            -88 |           -250 |
+| side |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 |
+|------|-----------:|-----------:|---------------:|---------------:|
+| Blue |      15733 |      24952 |             88 |            250 |
+| Red |      15645 |      24702 |            -88 |           -250 |
 
-NOTE: A 250 gold advantage for Blue side at 15 minutes is real but small. The bivariate plot showed that teams need roughly +500 to +1500 gold before win rate meaningfully climbs above 50%. So Blue side's inherent advantage alone isn't enough to decide games, but it's a subtle thing to notice. This also points at maybe including side as a feature in the final model alongside golddiffat15.
-
-Since I am testing whether early game leads predict wins, I thought it would be interesting to look at the average gold stats for the red and blue sides, since the blue side is often seen as the more advantageous side, since they get first pick. From the aggregate data above, we can see that the blue side holds a small but consistent gold advantage over the red side at both the 10 and 15 minute marks. While this advantage is modest relative to the gold differentials from the bivarate plot, it led me to make the decision to account for side as a factor when interpreting early gold leads. 
+Since the analysis focuses on whether early game leads predict wins, it is worth examining the average gold statistics for red and blue sides because the blue side is widely considered to be the more advantageous side due to first pick priority. The aggregate data shows that the blue side hold a small but consistent gold advantage over the red side at both the 10 and 15 minute marks. While this advantage is modest relative to the gold differentials observed in the bivariate plot, it suggests the side selection should be accounted for as a factor when interpreting early gold leads.
 
 ## Assessment of Missingness
 
