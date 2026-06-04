@@ -42,7 +42,7 @@ The raw dataset contains 12 rows per game - 10 player rows and 2 team summary ro
 
 Then complete games and partial games are separted using the `datacompleteness` column. This is done since paritial rows are missing the early-game gold columns which are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
 
-Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which where then cast to booleans. Game lenght was also converted from seconds to minutes for readability.
+Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which where then cast to booleans. Game length was also converted from seconds to minutes for readability.
 
 | gameid                | league   | side   | result   |   gamelength |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 | firstblood   | firsttower   | firstdragon   | datacompleteness   |
 |:----------------------|:---------|:-------|:---------|-------------:|-----------:|-----------:|---------------:|---------------:|:-------------|:-------------|:--------------|:-------------------|
@@ -67,8 +67,9 @@ This distribution shows the gold difference at 15 minutes for the team that was 
 
 ### Bivariate Analysis
 
-The bivariate analysis examines how gold differences at 15 minutes relates to two 
+The bivariate analysis examines how gold differences at 15 minutes relates to two key outcomes: win rate and game length. The first plot bins gold difference into ranges and computers the win rate for each bucket, revealing how strongly early gold leads translate to victories. The second plot examines whether the size of a gold lead also affects how quickly the game ends, testing whether large early leads not only predict wins but actively accelerate them.
 
+This bar chart shows win rate across gold difference buckets at 15 minutes. 
 <iframe
   src="assets/bivarite_gold_winrate.html"
   width="800"
@@ -76,8 +77,17 @@ The bivariate analysis examines how gold differences at 15 minutes relates to tw
   frameborder="0"
 ></iframe>
 
+The relationship is striking, showing that win rate increases consistently as gold lead grows (from under 10% for teams down more than 3,000 gold to over 90% for teams ahead by more than 3,000 gold. Surprisingly, even a small lead of 500 to 1,500 gold pushed win rate well above 50%, suggesting that the laning phase is highly predictive of match outcomes.
 
-This bar chart shows win rate across gold difference buckets at 15 minutes. The relationship is striking, showing that win rate increases consistently as gold lead grows (from under 10% for teams down more than 3,000 gold to over 90% for teams ahead by more than 3,000 gold. Surprisingly, even a small lead of 500 to 1,500 gold pushed win rate well above 50%, suggesting that the laning phase is highly predictive of match outcomes.
+This scatter plot shows game length against gold difference at 15 minutes for winning teams only. 
+<iframe
+  src="assets/bivarite_gold_gamelength.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The plot suggests that larger gold leads are associated with shorter, more decisive games. Winning teams with a gold lead greater than 3,000 at 15 minutes tend to close out games within 25-40 minutes, while winning teams with smaller gold leads face longer, more contested games that extend past 35 minutes. This suggests that large early gold leads don't just correlate with wins, they accelerate them, leaving the losing team with little time or opportunity for a comeback.
 
 ### Aggregates
 
