@@ -196,11 +196,9 @@ With a p-value of 0.0, which falls below the significance level of 0.05, we reje
 
 ## Framing a Prediction Problem
 
-Two columns were engineered for use in modeling: `gold_momentum` (`golddiffat15 - golddiffat10`), capturing whether a gold lead was growing or shrinking between 10 and 15 minutes, and `first_obj_count` (sum of `firstblood`, `firsttower`, and `firstdragon`), a 0-3 scale of early map dominance.
+The exploratory analysis and hypothesis testing done above confirmed that gold differences at 15 minutes is strongly associated with match outcomes. This raises the question: can we build a model that predicts, at the 15-minute mark, whether a team will win? This will be framed as a binary classification problem. The response variable is `result` (1 = win, 0 = loss) since it is the most direct measure of a team's success and ties directly to the question about early gold leads. The "time of prediction" is the 15-minute mark. This was chosen since there is the data for it, but also because it is the end of the laning phase, which is when the early-game advantages are fully established, but the game is far from over.
 
-Prediction problem: Given a team's early-game stats (first blood, gold at 10, first tower), predict whether they will eventually win — essentially testing how early the game is "decided."
-
-The exploratory analysis and hypothesis testing done above confirmed that gold differences at 15 minutes is strongly associated with match outcomes. This raises the question: can we build a model that predicts, at the 15-minute mark, whether a team will win? This will be framed as a binary classification problem. The response variable is `result` (1 = win, 0 = loss) since it is the most direct measure of a team's success and ties directly to the question about early gold leads. The "time of prediction" is the 15-minute mark. I chose this not only because I have data for it, but also because it is the end of the laning phase, which is when the early-game advantages are fully established, but the game is far from over.
+**Prediction problem: Given a team's early-game stats (first blood, gold at 10, first tower, etc.), predict whether they will eventually win (essentially testing how early the game is "decided").**
 
 All features used to train the model are observable by this point:
 
@@ -213,36 +211,49 @@ All features used to train the model are observable by this point:
 | firstdragon  | Nominal      | Whether team got first dragon |
 | side         | Nominal      | Blue or Red side |
 
-All post-game columns, such as kills, deaths, totalgold, and gamelength are excluded from this test since they are stats only known after the game ends. The model will be evaluated using both F1-score and accuracy. Since the dataset is perfectly balanced (every game has one winner and one loser, giving a natural 50/50 class split), accuracy is a valid metric. F1-score will also be reported since it accounts for both precision and recall, giving a more complete picture of model performance. A random baseline of this model would achieve 50% accuracy, but any model worth using should exceed this.
+All post-game columns, such as kills, deaths, totalgold, and gamelength are excluded from this test since they are statistics only known after the game ends. The model will be evaluated using both F1-score and accuracy. Since the dataset is perfectly balanced (every game has one winner and one loser, giving a natural 50/50 class split), accuracy is a valid metric. F1-score will also be reported since it accounts for both precision and recall, giving a more complete picture of model performance. A random baseline of this model would achieve 50% accuracy, but any model worth using should exceed this.
 
 ## Baseline Model
 
-WRITEEEE
+The baseline model is a Logistic Regression classifier trained on four features:
+`golddiffat15` (quantitative, scaled with `StandardScaler`), and `firstblood` ,`firsttower`, and `side` (all nominal, encoded with `OneHotEncoder`). 
 
-Accuracy:  0.7388
-F1-score:  0.7396
+The results for this baseline model are:
+| Metric | Score |
+| ------ | ----- |
+| Accuracy | 0.7388|
+| F1-score | 0.7396 |
+
+This baseline is a reasonable but imperfect model. At ~74% accuracy and F1-score, it performs well above the 50% random baseline, meaning early gold and objective features do carry genuine predictive signal. However, it is not a particularly "good" model in an absolute sense, roughly 1 in 4 predictions is wrong and logistic regression's linear decision boundary is likely too rigid to capture hte non-linear interactions between early-game features. It serves as a functional starting point, but there is clear room for improvement.
 
 ## Final Model
 
-WRITEEEEE
+Two features were engineered on top of the baseline: `gold_momentum` (`golddiffat15 - golddiffat10`), which captures whether a gold lead was growing or shrinking between 10 and 15 minutes, and `first_obj_count` (sum of `firstblood`, `firsttower`, and `firstdragon`), a 0-3 scale of early map control. A team steadily extending its lead carries different implications than one that peaked early, and objective control reflects map pressure that raw gold difference alone does not capture.
 
-Final Model Accuracy:  0.7425
-Final Model F1-score:  0.7440
+The final model swaps Logistic Regression for a Random Forest Classifier, which can model non-linear interactions between features. All three quantitative features (`golddiffat15`, `gold_momentum`, `first_obj_count`) are scaled with `StandardScaler`, and the same nomial features from the baseline are encoded identically. 
 
-Baseline Accuracy:  0.7388  →  Final Accuracy:  0.7425
-Baseline F1-score:  0.7396  →  Final F1-score:  0.7440
+Hyperparameters were tuned via `GridSearchCV` with 5-fold cross-validation over `max_depth`, `n_estimators` and `min_sample_leaf`. The best performing combination was `max_depth = 10`, `n_estimators = 200`, and `min_samples_leaf = 20`.
+
+The results for the final model are:
+
+| Metric | Baseline | Final |
+| ------ | ----- | -------- |
+| Accuracy | 0.7388| 0.7425 |
+| F1-score | 0.7396 | 0.7440|
+
+The final model improves on the baseline across both metrics. The modest gain reflects a genuine ceiling in the predictive power of 15-minute data. This leads to the conclusion that early-game advantages are strongly associated with wins, but League of Legends games are not decided in the first 15 minutes alone.
 
 ## Fairness Analysis
 
 Determined which teams were Tier 1 and which were tier two from Riot Games' global power rankings. The LCK (League Champions Korea), LPL (League of Legends Pro League - China), LEC (League of Legends EMEA Championship - Europe), and LCS (League Championship Series - North America) leagues hold the highest rankings globally. Thus, we will consider these leagues Tier 1, and the rest of the leagues will be Tier 2.
 
-Null: The model is fair. Its precision for Tier 1 leagues and Tier 2 leagues are roughly the same, any observed difference is due to random chance
+**Null Hypothesis:** The model is fair. Its precision for Tier 1 leagues and Tier 2 leagues are roughly the same, any observed difference is due to random chance
 
-Alt: The model is unfair. Its precision differs slightly between Tier 1 and Tier 2 leagues
+**Alternative Hypothesis:** The model is unfair. Its precision differs slightly between Tier 1 and Tier 2 leagues
 
-Test Stat: Absolute difference in precision between Tier 1 and Tier 2 groups
+**Test Statistic:** Absolute difference in precision between Tier 1 and Tier 2 groups
 
-Significance Level: 0.05
+**Significance Level:** 0.05
 
 Tier 1 precision:  0.7015
 Tier 2 precision:  0.7618
