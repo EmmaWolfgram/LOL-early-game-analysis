@@ -166,26 +166,33 @@ The observed difference in proportions of 0.0 is marked by the red vertical line
 
 ## Hypothesis Testing
 
-REWRITE SO NOT IN FIRST PERSON
-In the hypothesis test, I aimed to assess whether there is an observed difference in win rate between gold-ahead and gold-behind teams at the 15 minute mark is statistically significant. A gold-ahead team is any team with a positive `golddiffat15` value and a gold-behind team is any any team with a negative `golddiffat15` value. This investigation allows us to determine if games are "unlosable" for a team if they are ahead in gold 15 minutes into the game.
+This hypothesis test assesses whether the observed difference in win rate between gold-ahead and gold-behind teams at the 15 minute mark is statistically significant. A gold-ahead team is defined as any team with a positive `golddiffat15` value, and a gold-behind team is defined as any team with a negative `golddiffat15` value. This investigation aims to determine whether games become "unlosable" for a team that holds a gold lead 15 minutes in.
 
-Null hypothesis: A team's gold difference at 15 minutes has no effect on win rate. Any observed difference in win rates between gold-ahead and gold-behind teams is due to random chance.
+**Null hypothesis:** A team's gold difference at 15 minutes has no effect on win rate. Any observed difference in win rates between gold-ahead and gold-behind teams is due to random chance.
 
-Alternative hypothesis: Teams with a positive gold difference at 15 minutes win at a significantly higher rate than teams with a negative gold difference.
+**Alternative hypothesis:** Teams with a positive gold difference at 15 minutes win at a significantly higher rate than teams with a negative gold difference.
 
-Test Statistic: Difference in win rates -> win rate of gold-ahead teams - win rate of gold-behind teams
+**Test Statistic:** Difference in win rates (win rate of gold-ahead teams - win rate of gold-behind teams)
 
-Significance Level: 0.05
+**Significance Level:** 0.05
 
-Gold ahead win rate:   0.743
-Gold behind win rate:  0.257
-Observed difference:   0.485
-P-value: 0.0000
+The results of this hypothesis test are:
 
-(hypo emp plot)
-CONCLUSION OF PERM TEST
+| | Value |
+|-|-------|
+|Gold ahead win rate|  0.743|
+|Gold behind win rate|  0.257|
+|Observed difference|   0.485|
+|P-value| 0.0000
 
-Since the p-value that we found (0.0) is less than the significance level of 0.05, we reject the null hypothesis. This suggests that holding a gold lead at the 15-minute mark is associated with a significantly higher win rate.
+<iframe
+  src="assets/missing_hypo_emp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+With a p-value of 0.0, which falls below the significance level of 0.05, we reject the null hypothesis. This suggests that holding a gold lead at the 15-minute mark is associated with a significantly higher win rate.
 
 ## Framing a Prediction Problem
 
