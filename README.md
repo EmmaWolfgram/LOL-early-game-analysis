@@ -3,7 +3,7 @@ By: Emma Wolfgram
 
 <!-- CODE TO EMBED PLOTS -->
 <!-- <iframe
-  src="assets/univarite_gold.html"
+  src="assets/univariate_gold.html"
   width="800"
   height="600"
   frameborder="0"
@@ -57,7 +57,7 @@ Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstd
 The first univariate variable examined was the distribution of gold difference at 15 minutes (`golddiffat15`). To make this distribution more interpretable, only the team ahead in gold is included for each game. Including both teams would produce a distribution perfectly symmetric about zero, since every positive gold difference has an equal and opposite negative counterpart from the other team. By filtering to only gold-ahead teams, the shape of the early gold leads in professional play becomes much clearer.
 
 <iframe
-  src="assets/univarite_gold.html"
+  src="assets/univariate_gold.html"
   width="800"
   height="600"
   frameborder="0"
@@ -71,7 +71,7 @@ The bivariate analysis examines how gold differences at 15 minutes relates to tw
 
 This bar chart shows win rate across gold difference buckets at 15 minutes. 
 <iframe
-  src="assets/bivarite_gold_winrate.html"
+  src="assets/bivariate_gold_winrate.html"
   width="800"
   height="600"
   frameborder="0"
@@ -81,7 +81,7 @@ The relationship is striking, showing that win rate increases consistently as go
 
 This scatter plot shows game length against gold difference at 15 minutes for winning teams only. 
 <iframe
-  src="assets/bivarite_gold_gamelength.html"
+  src="assets/bivariate_gold_gamelength.html"
   width="800"
   height="600"
   frameborder="0"
