@@ -108,7 +108,7 @@ In this dataset, `playername` is most likely Not Missing At Random (NMAR). Looki
 
 In this section, the missingness of the `golddiffat15` column is tested for dependency on two other columns: `league` and `side`.
 
-**Permutation test 1: `golddiffat15` and `league`.**
+**Permutation Test 1: `golddiffat15` and `league`.**
 
 **Null Hypothesis:** The distribution of `league` when `golddiffat15` is missing is the same as the distribution of `league` when `golddiffat15` is not missing.
 
@@ -246,36 +246,26 @@ The final model improves on the baseline across both metrics. The modest gain re
 
 ## Fairness Analysis
 
-Determined which teams were Tier 1 and which were tier two from Riot Games' global power rankings. The LCK (League Champions Korea), LPL (League of Legends Pro League - China), LEC (League of Legends EMEA Championship - Europe), and LCS (League Championship Series - North America) leagues hold the highest rankings globally. Thus, we will consider these leagues Tier 1, and the rest of the leagues will be Tier 2.
+Tier 1 leagues are defined to be LCK, LPL, LEC, LCS/LTA, and LCP (the five leagues defined to be Tier 1 professional leagues by Riot Games). All remaining leagues are classified as Tier 2.
 
-**Null Hypothesis:** The model is fair. Its precision for Tier 1 leagues and Tier 2 leagues are roughly the same, any observed difference is due to random chance
+| | Tier 1 | Tier 2 |
+| ------ | ------ |
+| Games | 2032 | 19250 |
+| Precision | 0.7015 | 0.7618 |
 
-**Alternative Hypothesis:** The model is unfair. Its precision differs slightly between Tier 1 and Tier 2 leagues
+This fairness analysis evaluates whether the final model performs equally well for Tier 1 versus Tier 2 leagues. It is a meaningful fairness question because the model was trained on data from all leagues combined. If Tier 1 games follow systematically differnet patterns (e.g. gold leads are more decisive, comebacks are rarer, or missingness is concentrated in one tier), the model may perform better for one group than the other.
 
-**Test Statistic:** Absolute difference in precision between Tier 1 and Tier 2 groups
+**Null Hypothesis:** The model is fair. Its precision for Tier 1 and Tier 2 leagues are roughly the same, any observed difference is due to random chance.
+
+**Alternative Hypothesis:** The model is unfair. Its precision differs slightly between Tier 1 and Tier 2 leagues.
+
+**Test Statistic:** Absolute difference in precision between Tier 1 and Tier 2 groups.
 
 **Significance Level:** 0.05
 
-Tier 1 precision:  0.7015
-Tier 2 precision:  0.7618
-Observed diff:     0.0603
-P-value: 0.0634
+A permutation test with 10,000 iterations yields a p-value of 0.0634. Since 0.0634 > 0.05, we fail to reject the null, i.e. there is insufficient evidence to conclude that the model's precision differs significantly between Tier 1 and Tier 2 leagues.
 
-REWRTIE
+Notably, the model achieves slightly higher precision on Tier 2 games (0.7618) than Tier 1 games (0.7015). This may reflect that fact that Tier 2 games tend to be more lopsided since when a team builds a gold lead in a less competitive league, converting it into a win becomes easier therefore making predictions easier.
 
-This fairness analysis evaluates whether the final model performs equally well for teams in Tier 1 leagues (LCK, LPL, LEC, LCS) versus Tier 2 leagues (all others). This is a meaningful fairness question because the model was trained on data from all leagues combined and if Tier 1 games follow systematically different patterns (e.g. gold leads are more decisive, comebacks are rarer, or data is missing from one tier more than the other), the model may perform better for one group than the other.
+It should be noted that failing to reject the null hypothesis does not prove the model is perfectly fair, it only means there is insufficient evidence of a significant precision gap with a significance level of 0.05. The p-value of 0.0634 sits close enough to the threshold that a larger Tier 1 sample could tell a different story.
 
-Precision is used as the evaluation metric, measuring how often the model is correct when it predicts a win. The test statistic is the absolute difference in precision between the two groups.
-
-| Tier 1 | Tier 2 |
-| ------ | ------ |
-| Precision | 0.7015 | 0.7618 |
-| Games | 2032 | 19250 |
-
-p-value: 0.0634 > 0.05
-
-A permutation test with 10,000 iterations at α = 0.05 yields a p-value of 0.0634. Since 0.0634 > 0.05, we fail to reject the null hypothesis; there is not sufficient evidence to conclude that the model's precision differs significantly between Tier 1 and Tier 2 leagues.
-
-Interestingly, the model achieves slightly higher precision on Tier 2 games (0.7618) than Tier 1 games (0.7015). This may reflect the fact that Tier 2 games are more lopsided. When a team builds a gold lead in a less competitive league, they are even more likely to convert it into a win, making predictions more reliable. However, given the p-value of 0.0634 sitting just above the significance threshold, this difference is not statistically significant at the chosen level.
-
-Note that failing to reject the null hypothesis does not prove the model is perfectly fair; it only means there is insufficient evidence of a significant precision gap at α = 0.05. The p-value of 0.0634 is close enough to the threshold that a larger Tier 1 sample might tell a different story.
