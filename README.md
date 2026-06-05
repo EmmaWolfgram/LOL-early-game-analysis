@@ -1,15 +1,8 @@
 # How Early Leads Decide League of Legends Matches
 By: Emma Wolfgram
 
-<!-- CODE TO EMBED PLOTS -->
-<!-- <iframe
-  src="assets/univariate_gold.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe> -->
 ## Overview
-This data science project, conducted at UCSD, explores whether early-game gold leads in competitive League of Legends predict match outcomes and a machine learning model will be used to predict wins using only information available at the 15-minute mark.
+This data science project, conducted at UCSD, explores whether early-game gold leads in competitive League of Legends predict match outcomes. A machine learning model will be used to predict wins using only information available at the 15-minute mark.
 
 ## Introduction
 League of Legends (LOL) is one of the most popular competitive games in the world, with professional leagues spanning across the globe. Each match pits two teams of five against each other where the goal is to destory the enemy team's Nexus. Games are won through a combination of mechanical skill, strategic decision making, and resource accumulation. The most important resource is gold (which this project will examine), which is used to purchase items that make players stronger.
@@ -40,9 +33,9 @@ The orginal dataframe contains 150,348 rows and 165 columns. The columns that ar
 
 The raw dataset contains 12 rows per game - 10 player rows and 2 team summary row. For this analysis, player statistics are not needed so rows are filtered to only keep team rows. This reduces the dataset to 25,058 representing 10,641 unique games.
 
-Then complete games and partial games are separted using the `datacompleteness` column. This is done since paritial rows are missing the early-game gold columns which are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
+Then complete games and partial games are separted using the `datacompleteness` column. This is done since paritial rows are missing the early-game gold columns that are central to the main question. All EDA and modeling was performed on complete rows only, while both complete and partial rows were retained for the missingness anaylsis.
 
-Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which where then cast to booleans. Game length was also converted from seconds to minutes for readability.
+Serveral columns representing yes/no events (`firstblood`, `firsttower`, `firstdragon`,  `result`) were stored as floats which were then cast to booleans. Game length was also converted from seconds to minutes for readability.
 
 | gameid                | league   | side   | result   |   gamelength |   goldat10 |   goldat15 |   golddiffat10 |   golddiffat15 | firstblood   | firsttower   | firstdragon   | datacompleteness   |
 |:----------------------|:---------|:-------|:---------|-------------:|-----------:|-----------:|---------------:|---------------:|:-------------|:-------------|:--------------|:-------------------|
@@ -63,11 +56,11 @@ The first univariate variable examined was the distribution of gold difference a
   frameborder="0"
 ></iframe>
 
-This distribution shows the gold difference at 15 minutes for the team that was ahead in gold in each game (i.e. only positive gold differences are included). Smaller gold leads are much more common than large ones, with most games having a lead between 0 and 2,000 gold at 15 minutes and very few games seeing a lead beyond 5,000 gold. This suggests that while gold leads are nearly universal by 15 minutes, truly dominant early games are relatively rare in professional play.
+This distribution shows the gold difference at 15 minutes for the team that was ahead in gold in each game (i.e. only positive gold differences are included). Smaller gold leads are much more common than large ones, with most games having a lead between 0 and 2,000 gold at 15 minutes and very few games seeing a lead beyond 5,000 gold. While some gold advantage is almost always present by 15 minutes, truly dominant early games are relatively rare in professional play.
 
 ### Bivariate Analysis
 
-The bivariate analysis examines how gold differences at 15 minutes relates to two key outcomes: win rate and game length. The first plot bins gold difference into ranges and computers the win rate for each bucket, revealing how strongly early gold leads translate to victories. The second plot examines whether the size of a gold lead also affects how quickly the game ends, testing whether large early leads not only predict wins but actively accelerate them.
+The bivariate analysis examines how gold differences at 15 minutes relates to two key outcomes: win rate and game length. The first plot bins gold difference into ranges and computes the win rate for each bucket, revealing how strongly early gold leads translate to victories. The second plot examines whether the size of a gold lead also affects how quickly the game ends, testing whether large early leads not only predict wins but actively accelerate them.
 
 This bar chart shows win rate across gold difference buckets at 15 minutes. 
 <iframe
@@ -125,7 +118,7 @@ In this section, the missingness of the `golddiffat15` column is tested for depe
   frameborder="0"
 ></iframe>
 
-The distribution of `league` proportions is visualized above for both groups, rows where `golddiffat15` is missing and rows where is is not.
+The count of `golddiffat15` missingness is visualized above for both groups, rows where `golddiffat15` is missing and rows where it is not, broken down by league.
 
 <iframe
   src="assets/missing_test1_emp.html"
@@ -153,7 +146,7 @@ The observed TVD of 0.9926 is marked by the red vertical line. With a p-value of
   frameborder="0"
 ></iframe>
 
-The distribution of `side` proportions is visualed above for both groups, rows where `golddiffat15` is missing and row where it is not.
+The missing rate of `golddiffat15` missingness is visualized above for both groups, rows where `golddiffat15` is missing and rows where it is not, broken down by `side`.
 
 <iframe
   src="assets/missing_test2_emp.html"
@@ -196,7 +189,7 @@ With a p-value of 0.0, which falls below the significance level of 0.05, we reje
 
 ## Framing a Prediction Problem
 
-The exploratory analysis and hypothesis testing done above confirmed that gold differences at 15 minutes is strongly associated with match outcomes. This raises the question: can we build a model that predicts, at the 15-minute mark, whether a team will win? This will be framed as a binary classification problem. The response variable is `result` (1 = win, 0 = loss) since it is the most direct measure of a team's success and ties directly to the question about early gold leads. The "time of prediction" is the 15-minute mark. This was chosen since there is the data for it, but also because it is the end of the laning phase, which is when the early-game advantages are fully established, but the game is far from over.
+The exploratory analysis and hypothesis testing done above confirmed that gold differences at 15 minutes is strongly associated with match outcomes. This raises the question: can we build a model that predicts, at the 15-minute mark, whether a team will win? This will be framed as a binary classification problem. The response variable is `result` (1 = win, 0 = loss) since it is the most direct measure of a team's success and ties directly to the question about early gold leads. The "time of prediction" is the 15-minute mark. This was chosen since there is the data for it, but also because it is the end of the laning phase, which is when the early-game advantages are fully established, but the game is still not over.
 
 **Prediction problem: Given a team's early-game stats (first blood, gold at 10, first tower, etc.), predict whether they will eventually win (essentially testing how early the game is "decided").**
 
@@ -225,7 +218,7 @@ The results for this baseline model are:
 | Accuracy | 0.7388 |
 | F1-score | 0.7396 |
 
-This baseline is a reasonable but imperfect model. At ~74% accuracy and F1-score, it performs well above the 50% random baseline, meaning early gold and objective features do carry genuine predictive signal. However, it is not a particularly "good" model in an absolute sense, roughly 1 in 4 predictions is wrong and logistic regression's linear decision boundary is likely too rigid to capture hte non-linear interactions between early-game features. It serves as a functional starting point, but there is clear room for improvement.
+This baseline is a reasonable but imperfect model. At ~74% accuracy and F1-score, it performs well above the 50% random baseline, meaning early gold and objective features do carry genuine predictive signal. However, it is not a particularly "good" model in an absolute sense, roughly 1 in 4 predictions are wrong and logistic regression's linear decision boundary is likely too rigid to capture the non-linear interactions between early-game features. It serves as a functional starting point, but there is clear room for improvement.
 
 ## Final Model
 
