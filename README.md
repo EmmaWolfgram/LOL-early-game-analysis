@@ -246,7 +246,7 @@ Tier 1 leagues are defined to be LCK, LPL, LEC, LCS/LTA, and LCP (the five leagu
 | Games | 2032 | 19250 |
 | Precision | 0.7015 | 0.7618 |
 
-This fairness analysis evaluates whether the final model performs equally well for Tier 1 versus Tier 2 leagues. It is a meaningful fairness question because the model was trained on data from all leagues combined. If Tier 1 games follow systematically differnet patterns (e.g. gold leads are more decisive, comebacks are rarer, or missingness is concentrated in one tier), the model may perform better for one group than the other.
+This fairness analysis evaluates whether the final model performs equally well for Tier 1 versus Tier 2 leagues. It is a meaningful fairness question because the model was trained on data from all leagues combined. If Tier 1 games follow systematically different patterns (e.g. gold leads are more decisive, comebacks are rarer, or missingness is concentrated in one tier), the model may perform better for one group than the other.
 
 **Null Hypothesis:** The model is fair. Its precision for Tier 1 and Tier 2 leagues are roughly the same, any observed difference is due to random chance.
 
